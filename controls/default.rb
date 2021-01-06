@@ -6,6 +6,7 @@ BANNER = attribute('BANNER', value: ['WARNING: Use of this System is restricted 
 ENCRYPTION = attribute('ENCRYPTION', value: 'AES256')
 SSH_AUTH_TIMEOUT = attribute('SSH_AUTH_TIMEOUT', value: 900)
 SSH_AUTH_RETRIES = attribute('SSH_AUTH_RETRIES', value: 3)
+LOGGING_BUFFER = attribute('LOGGING_BUFFER', value: 64000)
 EXTERNAL_INTERFACES = attribute('EXTERNAL_INTERFACES', value: [])
 EIGRP_INTERFACE = attribute('EIGRP_INTERFACE', value: '')
 OSPF_INTERFACE = attribute('OSPF_INTERFACE', value: '')
@@ -773,7 +774,7 @@ control '5.2.2 Logging Buffer' do
   tag cis: '2.2.2'
 
   describe cisco_ios_running_config do
-    it { should have_line /^logging buffered 64000$/ }
+    it { should have_line /^logging buffered #{LOGGING_BUFFER}$/ }
   end
 
   only_if { !NA_BASELINE_SETTINGS.include? '5.2.2' }
